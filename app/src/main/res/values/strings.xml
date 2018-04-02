@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">PredictClient</string>
+    <string name="result_text">Result</string>
+</resources>
