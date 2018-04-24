@@ -48,6 +48,7 @@ public class ConnectActivity extends AppCompatActivity implements View.OnClickLi
     ServerSocket serverSocket;
 
     Thread thread;
+    boolean threadBool = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +68,11 @@ public class ConnectActivity extends AppCompatActivity implements View.OnClickLi
     protected void onResume() {
         super.onResume();
 
-        strDeviceIP = ModelNetwork.getDeviceIP(getApplicationContext());
+        //strDeviceIP = ModelNetwork.getWifiIP(getApplicationContext());
+        strDeviceIP = ModelNetwork.getMobileIP();
         tvIP.setText(strDeviceIP);
+
+        Log.d(TAG, "Cellular: " + ModelNetwork.getMobileIP());
 
         thread = new Thread(new MyServerThread());
         thread.start();
@@ -98,7 +102,6 @@ public class ConnectActivity extends AppCompatActivity implements View.OnClickLi
 
     class AsynTaskSend extends AsyncTask<Void, Void, Void> {
         private final ProgressDialog dialog = new ProgressDialog(ConnectActivity.this);
-        boolean threadBool = false;
 
         // can use UI thread here
         protected void onPreExecute() {
@@ -137,12 +140,6 @@ public class ConnectActivity extends AppCompatActivity implements View.OnClickLi
             if (this.dialog.isShowing()) {
                 this.dialog.dismiss();
             }
-
-            if (threadBool == true) {
-                Toast.makeText(getApplicationContext(), "Successfully", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(getApplicationContext(), "Fail", Toast.LENGTH_SHORT).show();
-            }
         }
     }
 
@@ -169,9 +166,16 @@ public class ConnectActivity extends AppCompatActivity implements View.OnClickLi
                         public void run() {
                             Log.d("MYLOG", "strMessege: " + strMessege);
                             if (strMessege.equals("OK")) {
-                                Intent intent = new Intent(getApplicationContext(), CameraActivity.class);
-                                intent.putExtra("serverIP", etIP.getText().toString());
-                                getApplicationContext().startActivity(intent);
+
+                                if (threadBool == true) {
+                                    Toast.makeText(getApplicationContext(), "Successfully", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(getApplicationContext(), CameraActivity.class);
+                                    intent.putExtra("serverIP", etIP.getText().toString());
+                                    getApplicationContext().startActivity(intent);
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Fail", Toast.LENGTH_SHORT).show();
+                                }
+
                             }
                         }
                     });

@@ -52,7 +52,7 @@ public class CameraActivity extends AppCompatActivity implements CameraBridgeVie
     String encoded = "";
     byte[] byteArray;
 
-    Button btnStart,btnCapture;
+    Button btnStart, btnCapture;
     TextView tvResult;
 
     Socket client_socket;
@@ -64,6 +64,7 @@ public class CameraActivity extends AppCompatActivity implements CameraBridgeVie
     ServerSocket serverSocket;
 
     Thread thread;
+    boolean readytosend = true;
 
     CameraBridgeViewBase cameraBridgeViewBase;
     BaseLoaderCallback baseLoaderCallback = new BaseLoaderCallback(this) {
@@ -89,7 +90,8 @@ public class CameraActivity extends AppCompatActivity implements CameraBridgeVie
 
         init();
 
-        strDeviceIP = ModelNetwork.getDeviceIP(getApplicationContext());
+        //strDeviceIP = ModelNetwork.getWifiIP(getApplicationContext());
+        strDeviceIP = ModelNetwork.getMobileIP();
     }
 
     private void init() {
@@ -151,6 +153,7 @@ public class CameraActivity extends AppCompatActivity implements CameraBridgeVie
         // can use UI thread here
         protected void onPreExecute() {
             super.onPreExecute();
+            btnCapture.setEnabled(false);
         }
 
         @Override
@@ -190,7 +193,8 @@ public class CameraActivity extends AppCompatActivity implements CameraBridgeVie
             }
         }
 
-        if (v == btnCapture){
+        if (v == btnCapture) {
+            readytosend = false;
             new CameraActivity.AsynTaskSend().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
@@ -218,6 +222,8 @@ public class CameraActivity extends AppCompatActivity implements CameraBridgeVie
                         public void run() {
                             tvResult.setText(strMessege);
                             Log.d("MYLOG", "strMessege camera: " + strMessege);
+                            btnCapture.setEnabled(true);
+                            readytosend = true;
                         }
                     });
 
