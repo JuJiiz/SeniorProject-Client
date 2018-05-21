@@ -6,18 +6,38 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:padding="16dp"
-    android:weightSum="10"
     tools:context="project.jujiiz.app.predictclient.controllers.CameraActivity">
 
     <RelativeLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="9">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <org.opencv.android.JavaCameraView
             android:id="@+id/jvcPreview"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:padding="8dp"
+            android:text="@string/status_text_standby"
+            android:textColor="@color/colorCameraStatusStandby"
+            android:textSize="@dimen/dimenOnCameraText"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/btnCapture"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/btnrelease"
+            android:adjustViewBounds="true"/>
 
         <TextView
             android:id="@+id/tvResult"
@@ -31,20 +51,5 @@
             android:textSize="@dimen/dimenOnCameraText"
             android:textStyle="bold" />
     </RelativeLayout>
-
-    <Button
-        android:id="@+id/btnStart"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:text="On"/>
-    <Button
-        android:id="@+id/btnCapture"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:visibility="gone"
-        android:text="Capture"/>
-
 
 </LinearLayout>

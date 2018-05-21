@@ -21,8 +21,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".controllers.CameraActivity"
-            android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".controllers.CameraActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name=".controllers.HomeActivity" />
+        <activity android:name=".controllers.VideoActivity"></activity>
     </application>
 
 </manifest>

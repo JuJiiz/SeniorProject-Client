@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".controllers.VideoActivity">
+
+    <ImageView
+        android:id="@+id/ivExam"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerHorizontal="true"
+        android:background="#c5c5c5" />
+
+    <Button
+        android:id="@+id/btnBrowse"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/ivExam"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:text="Browse" />
+
+    <TextView
+        android:id="@+id/tvResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnBrowse"
+        android:gravity="center"
+        android:textColor="#111111"
+        android:textSize="30dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnExecute"
+        android:layout_alignParentRight="true"
+        android:textColor="#111111"
+        android:textSize="16dp"
+        android:text="Idle" />
+
+    <Button
+        android:id="@+id/btnExecute"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:text="Execute" />
+
+</RelativeLayout>

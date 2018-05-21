@@ -2,19 +2,14 @@ package project.jujiiz.app.predictclient.controllers;
 
 import android.Manifest;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -29,8 +24,6 @@ import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-
-import android.text.format.Formatter;
 
 import project.jujiiz.app.predictclient.R;
 import project.jujiiz.app.predictclient.models.ModelNetwork;
@@ -67,6 +60,9 @@ public class ConnectActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onResume() {
         super.onResume();
+
+        /*StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);*/
 
         //strDeviceIP = ModelNetwork.getWifiIP(getApplicationContext());
         strDeviceIP = ModelNetwork.getMobileIP();
@@ -140,6 +136,13 @@ public class ConnectActivity extends AppCompatActivity implements View.OnClickLi
             if (this.dialog.isShowing()) {
                 this.dialog.dismiss();
             }
+
+            if (threadBool == true) {
+                Toast.makeText(getApplicationContext(), "Successfully", Toast.LENGTH_SHORT).show();
+
+            } else {
+                Toast.makeText(getApplicationContext(), "Fail", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -167,14 +170,9 @@ public class ConnectActivity extends AppCompatActivity implements View.OnClickLi
                             Log.d("MYLOG", "strMessege: " + strMessege);
                             if (strMessege.equals("OK")) {
 
-                                if (threadBool == true) {
-                                    Toast.makeText(getApplicationContext(), "Successfully", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getApplicationContext(), CameraActivity.class);
-                                    intent.putExtra("serverIP", etIP.getText().toString());
-                                    getApplicationContext().startActivity(intent);
-                                } else {
-                                    Toast.makeText(getApplicationContext(), "Fail", Toast.LENGTH_SHORT).show();
-                                }
+                                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                                intent.putExtra("serverIP", etIP.getText().toString());
+                                getApplicationContext().startActivity(intent);
 
                             }
                         }
